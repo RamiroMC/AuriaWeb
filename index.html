@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Crónicas de Auria — RPG de turnos oscuro</title>
+<meta name="description" content="RPG de turnos con dados de verdad: 22 zonas, 32 jefes, 139 habilidades, ciclo de elementos. Android y escritorio. Sin conexión.">
+<meta property="og:title" content="Crónicas de Auria — RPG de turnos oscuro">
+<meta property="og:description" content="22 zonas, 32 jefes, 139 habilidades y dados de verdad. Del bosque de Umbría al Vacío final. Android y escritorio, sin conexión.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0d1117">
+<meta name="color-scheme" content="dark">
+<script>document.documentElement.className='js';</script>
+<link rel="preload" href="assets/Cinzel.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body id="top">
+
+<!-- intro -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <svg class="loader-ring" viewBox="0 0 120 120">
+      <circle class="track" cx="60" cy="60" r="52"/>
+      <circle class="draw" cx="60" cy="60" r="52"/>
+      <circle class="core" cx="60" cy="60" r="22"/>
+    </svg>
+    <p class="loader-name">Crónicas de Auria</p>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="halo" id="halo" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="ring"></span><span class="pt"></span></div>
+
+<a href="#mundo" class="sr skip">Saltar al contenido</a>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Crónicas de Auria, inicio">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="6" fill="currentColor"/></svg>
+      <span>Crónicas de Auria</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <ul id="menu">
+      <li><a href="#mundo">El mundo</a></li>
+      <li><a href="#jefes">Jefes</a></li>
+      <li><a href="#combate">Combate</a></li>
+      <li><a href="#personajes">Personajes</a></li>
+      <li><a href="#numeros">El juego</a></li>
+      <li><a class="nav-cta magnetic" href="#descarga">Descargar</a></li>
+      <li class="nav-ind" id="navInd" aria-hidden="true"></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="sky" aria-hidden="true"></div>
+  <canvas class="sky-canvas" id="skyCanvas" aria-hidden="true"></canvas>
+  <div class="eclipse" id="eclipse" aria-hidden="true">
+    <div class="glow"></div><div class="rays"></div><div class="corona"></div><div class="disc"><span class="flare"></span></div>
+  </div>
+
+  <svg class="ridge far" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true" data-parallax="0.14" data-mx="6">
+    <path d="M0,220 L0,140 Q120,60 260,110 T520,80 Q660,30 800,100 T1080,70 Q1220,120 1330,90 L1440,130 L1440,220 Z" fill="#0a111f"/>
+  </svg>
+  <svg class="ridge mid" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true" data-parallax="0.26" data-mx="12">
+    <path d="M0,260 L0,180 Q160,100 320,150 T640,120 Q820,60 980,140 T1260,110 Q1360,150 1440,120 L1440,260 Z" fill="#070b13"/>
+    <path class="beacon" d="M300,150 L320,150 L310,128 Z" fill="#d4b062"/>
+    <path class="beacon b2" d="M980,140 L1000,140 L990,118 Z" fill="#d4b062"/>
+  </svg>
+  <svg class="ridge near" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true" data-parallax="0.38" data-mx="20">
+    <path d="M0,140 L0,80 Q200,30 420,70 T840,60 Q1060,20 1260,70 L1440,60 L1440,140 Z" fill="#05070c"/>
+  </svg>
+  <div class="fog" aria-hidden="true"></div>
+  <div class="fog f2" aria-hidden="true"></div>
+
+  <div class="hero-grid" id="heroGrid">
+    <div class="hero-copy">
+      <p class="kicker intro" style="--d:.05s">RPG de turnos · sin conexión · Android y escritorio</p>
+      <div class="title-bezel">
+        <h1 class="back" aria-hidden="true" id="titleBack"></h1>
+        <h1 id="titleFront" aria-label="Crónicas de Auria"></h1>
+        <span class="shine" aria-hidden="true">Crónicas de Auria</span>
+      </div>
+      <p class="title-sub intro" style="--d:1.05s">la marca del eclipse</p>
+      <p class="lede intro" style="--d:1.2s">Un RPG de turnos con dados de verdad: cada acción tira <b>1d20</b> y el registro muestra la tirada paso a paso. Veintidós zonas del bosque de Umbría al Vacío final, treinta y dos jefes con fases propias y ciento treinta y nueve habilidades. El mundo se está acabando y alguien tiene que llegar hasta el final para saber por qué.</p>
+      <div class="cta-row intro" style="--d:1.35s">
+        <a class="btn primary magnetic" href="#descarga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>
+          <span>Descargar APK · 1.0.5.2</span>
+        </a>
+        <a class="btn ghost magnetic" href="#mundo"><span>Explorar el mundo</span></a>
+      </div>
+    </div>
+    <aside class="hero-side" aria-label="Datos del juego">
+      <div class="side-row intro" style="--d:1.45s"><span class="k">Versión</span><span class="v">1.0.5.2 <small>· 67 MB</small></span></div>
+      <div class="side-row intro" style="--d:1.55s"><span class="k">Compras dentro</span><span class="v">Ninguna</span></div>
+      <div class="side-row intro" style="--d:1.65s"><span class="k">Conexión</span><span class="v">No necesaria</span></div>
+      <div class="side-row intro" style="--d:1.75s"><span class="k">Verificado con</span><span class="v">2 521 <small>pruebas</small></span></div>
+    </aside>
+  </div>
+
+  <div class="hero-meta intro" style="--d:1.9s" aria-hidden="true">
+    <span><b>67 MB</b> · un archivo</span><span><b>0</b> · anuncios</span><span><b>100 %</b> · offline</span>
+  </div>
+  <a class="scroll-hint intro" style="--d:2s" href="#mundo" aria-label="Bajar al contenido"><span>baja</span><span class="line"></span></a>
+</header>
+
+<div class="dice-strip" aria-hidden="true">
+  <div class="dice-track" id="diceTrack"></div>
+  <div class="dice-track rev" id="diceTrack2"></div>
+</div>
+
+<main>
+<section id="mundo">
+  <div class="wrap">
+    <p class="kicker" data-reveal="left">El mundo</p>
+    <h2 data-reveal="split">Veintidós zonas, del pueblo minero al Vacío</h2>
+    <p class="lede" data-reveal="up" style="--rd:.1s">Cada zona tiene su propio mapa de puntos de interés, su ambiente y su bestiario. Unas son refugio; otras, trampas con aspecto de camino. La cadena principal cruza el mundo desde Piedrahonda hasta el Santuario del Eclipse, y la post-campaña sube hasta el nivel 100.</p>
+
+    <div class="zones" data-reveal="scale" style="--rd:.15s">
+      <div class="zone-frame" id="zoneFrame" tabindex="0" aria-label="Galería de zonas. Usa las flechas para cambiar.">
+        <div class="scenes" id="zoneScenes"></div>
+        <div class="plate"><div class="n" id="zonePlateName"></div><div class="m" id="zonePlateMeta"></div></div>
+        <div class="zone-timer"><span id="zoneTimer"></span></div>
+        <div class="frame-edge"></div><div class="inset"></div>
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      </div>
+      <div class="zone-panel">
+        <div class="zone-swap" id="zoneSwap">
+          <div class="zone-tags" id="zoneTags"></div>
+          <h3 id="zoneName"></h3>
+          <p class="desc" id="zoneDesc"></p>
+        </div>
+        <div class="zone-nav">
+          <button id="zonePrev" aria-label="Zona anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button id="zoneNext" aria-label="Zona siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          <span class="zone-counter" id="zoneCounter"></span>
+        </div>
+        <div class="zone-dots" id="zoneDots"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="ornament" data-reveal="draw" aria-hidden="true"><span>◆ ◆ ◆</span></div></div>
+
+<section class="quote-sec">
+  <div class="wrap">
+    <blockquote class="pull" data-reveal="up">
+      <q id="cita"></q>
+      <span class="src" id="citaSrc"></span>
+    </blockquote>
+  </div>
+</section>
+
+<section id="jefes">
+  <div class="wrap">
+    <p class="kicker" data-reveal="left">Bestiario</p>
+    <h2 data-reveal="split">Treinta y dos jefes, cada uno con su fase</h2>
+    <p class="lede" data-reveal="up" style="--rd:.1s">Noventa plantillas de enemigo con IA propia —brutos, tramposos, lanzadores, invocadores— y jefes de varias fases que cambian de estadísticas, habilidades y estrategia a mitad del combate. Los jefes de raid sueltan su ajuar completo; los de zona, las piezas de su conjunto.</p>
+
+    <div class="boss-bar" data-reveal="up" style="--rd:.15s">
+      <div class="boss-filter" id="bossFilter" role="group" aria-label="Filtrar jefes">
+        <span class="chip-ind" id="chipInd" aria-hidden="true"></span>
+        <button class="chip on" data-f="all" aria-pressed="true">Todos</button>
+        <button class="chip" data-f="campana" aria-pressed="false">Campaña</button>
+        <button class="chip" data-f="raid" aria-pressed="false">Raid</button>
+        <button class="chip" data-f="alto" aria-pressed="false">Nivel 50+</button>
+      </div>
+      <span class="boss-count" id="bossCount" aria-live="polite"></span>
+    </div>
+    <div class="boss-grid" id="bossGrid"></div>
+  </div>
+</section>
+
+<section id="combate" class="combat">
+  <div class="wrap">
+    <p class="kicker" data-reveal="left">Combate</p>
+    <h2 data-reveal="split">Dados de verdad, turnos de verdad</h2>
+    <div class="combat-grid">
+      <div data-reveal="left">
+        <p class="lede">El motor interpreta expresiones como <b>1d20+strength</b> o <b>2d12+magic</b> y el registro animado muestra cada tirada paso a paso. El 20 natural siempre impacta; el 1 siempre falla. La mitigación, los críticos por Suerte y el ciclo de elementos —fuego, aire, tierra, agua— se calculan con las mismas fórmulas en cada combate, y todo el azar pasa por un generador reproducible: una partida se puede volver a jugar exacta.</p>
+        <ul class="combat-list" data-stagger style="margin-top:var(--s8)">
+          <li><span class="k">Crítico</span><span class="v">20 natural asegurado · multiplicador hasta ×3 por Suerte</span></li>
+          <li><span class="k">Mitigación</span><span class="v">daño × 100 / (100 + defensa × 6)</span></li>
+          <li><span class="k">Elementos</span><span class="v">×1,5 a la debilidad · ×0,5 al resistir · ×0 al inmune</span></li>
+          <li><span class="k">Estados</span><span class="v">veneno, quemadura, sangrado, congelación, parálisis, sueño…</span></li>
+        </ul>
+      </div>
+      <div class="combat-stage" id="stage" data-reveal="right">
+        <div class="stage-flash" id="stageFlash" aria-hidden="true"></div>
+        <div class="cs-head"><span class="t">Ronda <span id="csRound">1</span></span><span class="r" id="csTurn">turno del grupo</span></div>
+        <div class="cs-fighters">
+          <div class="fighter" id="fHero">
+            <div class="top"><span class="nm">Aren · rúnico</span><span class="hpv" id="hpHeroV"></span></div>
+            <div class="bar hp"><div class="ghost" id="ghHero" style="width:100%"></div><div class="fill" id="hpHero" style="width:100%"></div></div>
+            <div class="mprow"><span class="k">MP</span><div class="bar mp"><div class="fill" id="mpHero" style="width:100%"></div></div></div>
+            <div class="states" id="stHero"></div>
+            <div class="floats" aria-hidden="true"></div>
+          </div>
+          <div class="fighter boss-f" id="fBoss">
+            <div class="top"><span class="nm" id="nmBoss">El Devorador</span><span class="hpv" id="hpBossV"></span></div>
+            <div class="bar hp"><div class="ghost" id="ghBoss" style="width:100%"></div><div class="fill" id="hpBoss" style="width:100%;background:linear-gradient(90deg,#ba68c8,#e0b0f0)"></div></div>
+            <div class="mprow"><span class="k">Fase</span><div class="bar mp"><div class="fill" id="phBoss" style="width:100%;background:linear-gradient(90deg,#9c7434,#f3cf7a)"></div></div></div>
+            <div class="states" id="stBoss"></div>
+            <div class="floats" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="die-row">
+          <div class="die-wrap"><div class="die d20" id="die1"><span>20</span></div></div>
+          <div class="die-wrap"><div class="die mod" id="die2"><span>+9</span></div></div>
+        </div>
+        <p class="expr" id="dieExpr">golpe_poderoso · <b>1d20+strength</b></p>
+        <div class="cs-log" id="csLog" aria-live="polite"></div>
+        <div class="element-cycle" id="elemCycle"></div>
+        <div class="cs-actions">
+          <button class="btn ghost" id="rollBtn"><span>Tirar los dados</span></button>
+          <button class="btn ghost" id="autoBtn"><span>Ver combate</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="personajes">
+  <div class="wrap">
+    <p class="kicker" data-reveal="left">Personajes</p>
+    <h2 data-reveal="split">Siete clases, seis razas, seis orígenes</h2>
+    <p class="lede" data-reveal="up" style="--rd:.1s">Cada elección cambia la partida de verdad: modificadores de estadísticas, crecimiento propio por nivel, resistencias elementales, rasgos con efecto real y una habilidad exclusiva. Siete compañeros reclutables se unen al grupo según su confianza contigo, de 0 a 100.</p>
+
+    <div class="class-grid" id="classGrid" data-stagger></div>
+
+    <h2 style="margin-top:var(--s16)" data-reveal="split">Las razas de Auria</h2>
+    <p class="lede" data-reveal="up" style="--rd:.08s">Cada raza trae su propio crecimiento por nivel, dos rasgos con efecto real y una habilidad racial desde el nivel 1.</p>
+    <div class="race-strip" id="raceStrip" data-stagger></div>
+  </div>
+</section>
+
+<section id="numeros" class="numbers">
+  <div class="wrap">
+    <p class="kicker cent" data-reveal="up">El juego, contado en números</p>
+    <h2 class="cent" data-reveal="split">Todo medido sobre el código</h2>
+    <div class="num-grid" id="numGrid" data-stagger></div>
+    <div class="ornament" data-reveal="draw" aria-hidden="true"><span>◆ ◆ ◆</span></div>
+    <p class="lede" style="margin:0 auto;text-align:center" data-reveal="up">Trescientos cincuenta objetos, ciento veinticuatro recetas de crafteo, catorce ajuares con pasivas, treinta misiones encadenadas y nueve mazmorras con tres dificultades. Verificado con más de 2 500 pruebas automáticas y partidas completas sin interfaz.</p>
+  </div>
+</section>
+
+<section id="descarga">
+  <div class="wrap">
+    <p class="kicker cent" data-reveal="up">Descarga</p>
+    <h2 class="cent" data-reveal="split">Llévatelo puesto</h2>
+    <div class="download-card" data-reveal="scale" style="--rd:.12s">
+      <div class="dl-border" aria-hidden="true"></div>
+      <div class="inset"></div>
+      <div class="dl-sigil" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 6"/><circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="50" cy="50" r="14" fill="currentColor"/></svg>
+      </div>
+      <h3>Crónicas de Auria 1.0.5.2</h3>
+      <p class="apk">CronicasDeAuria-1.0.5.2.apk · 67 MB · Android</p>
+      <div class="cta-row">
+        <a class="btn primary magnetic" href="assets/CronicasDeAuria-1.0.5.2.apk" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>
+          <span>Descargar APK</span>
+        </a>
+        <a class="btn ghost magnetic" href="mailto:contacto@auria.example?subject=Crónicas%20de%20Auria"><span>Aviso de caída del enlace</span></a>
+      </div>
+      <div class="reqs" data-stagger>
+        <div class="req">Sistema<b>Android 7.0 o superior</b></div>
+        <div class="req">Tamaño<b>67 MB · sin datos extra</b></div>
+        <div class="req">Permisos<b>Ninguno en juego</b></div>
+        <div class="req">Conexión<b>No necesaria</b></div>
+      </div>
+      <p class="note">Si el enlace falla, escríbenos y te lo reenviamos. Instala desde «orígenes desconocidos» si tu Android lo pide. El juego también corre en escritorio (Windows) con Python 3.12 y Flet 0.28.3.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="6" fill="currentColor"/></svg>
+      Crónicas de Auria
+    </a>
+    <p>RPG de turnos · Python + Flet · hecho para jugarse sin conexión</p>
+    <p>Versión 1.0.5.2 · 2026</p>
+  </div>
+</footer>
+
+<a href="#top" class="to-top" id="toTop" aria-label="Volver arriba">
+  <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="21"/><circle class="val" id="toTopRing" cx="24" cy="24" r="21"/></svg>
+  <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5m0 0l-6 6m6-6l6 6"/></svg>
+</a>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
